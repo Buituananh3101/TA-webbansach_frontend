@@ -5,6 +5,7 @@ import Navbar from './layouts/header-footer/navbar';
 import Footer from './layouts/header-footer/footer';
 import HomePage from './layouts/homepage-components/HomePage';
 import { layToanBoSach } from './api/SachAPI';
+import DanhSachSanPham from './layouts/product/DanhSachSanPham';
 
 function App() {
 

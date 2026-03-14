@@ -37,9 +37,27 @@ export async function layToanBoSach(): Promise<SachModel[]> {
     const duongDan:string = 'http://localhost:8080/sach';
 
     // Gọi phương thức request
-    const response=request(duongDan)
+    const response= await request(duongDan)
    
-    console.log(response);
+    // Lấy ra json sach
+    const responseData = response._embedded.saches;
+
+
+    // Lấy từng quyển sách
+    for(const key in responseData){
+        ketQua.push({
+            maSach: responseData[key].maSach,
+            tenSach: responseData[key].tenSach,
+            tenTacGia: responseData[key].tenTacGia,
+            isbn: responseData[key].isbn,
+            moTa: responseData[key].moTa,
+            giaNiemYet: responseData[key].giaNiemYet,
+            giaBan: responseData[key].giaBan,
+            soLuong: responseData[key].soLuong,
+            trungBinhXepHang: responseData[key].trungBinhXepHang
+        });
+    }
+
 
 
 
