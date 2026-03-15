@@ -4,6 +4,12 @@ import SachModel from "../model/SachModel";
 import { my_request } from "./Request";
 
 
+interface KetQuaInterface{
+    ketQua: SachModel[];
+    tongSoTrang: number;
+    tongSoSach: number;
+}
+
 /**
  * Hàm lấy danh sách toàn bộ sách từ API
  * 
@@ -11,7 +17,7 @@ import { my_request } from "./Request";
  * async: Khai báo hàm bất đồng bộ (vì việc gọi API cần thời gian chờ phản hồi).
  * Promise<SachModel[]>: Kiểu dữ liệu trả về là một "Lời hứa" sẽ trả về một mảng các đối tượng SachModel.
  */
-async function laySach(duongDan:string): Promise<SachModel[]>{
+async function laySach(duongDan:string): Promise<KetQuaInterface>{
     const ketQua:SachModel[]=[];
 
     // Gọi phương thức request
@@ -19,6 +25,10 @@ async function laySach(duongDan:string): Promise<SachModel[]>{
    
     // Lấy ra json sach
     const responseData = response._embedded.saches;
+
+    // Lấy thông tin trang
+    const tongSoTrang:number = response.page.totalPages;
+    const tongSoSach: number = response.page.totalElements;
 
     // Lấy từng quyển sách
     for(const key in responseData){
@@ -35,17 +45,16 @@ async function laySach(duongDan:string): Promise<SachModel[]>{
         });
     }
 
-    return ketQua;
+    return {ketQua:ketQua, tongSoTrang:tongSoTrang, tongSoSach:tongSoSach};
 }
 
 
-export async function layToanBoSach(): Promise<SachModel[]> {
-    const duongDan:string = 'http://localhost:8080/sach?sort=maSach,desc';
+export async function layToanBoSach(trangHienTai:number): Promise<KetQuaInterface> {
+    const duongDan:string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
     return laySach(duongDan);
 }
 
-export async function lay3SachMoiNhat(): Promise<SachModel[]> {
+export async function lay3SachMoiNhat(): Promise<KetQuaInterface> {
     const duongDan:string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
     return laySach(duongDan);
 }
-

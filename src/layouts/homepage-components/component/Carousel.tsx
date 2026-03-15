@@ -11,8 +11,8 @@ const Carousel: React.FC = () => {
 
     useEffect(() => {
         lay3SachMoiNhat().then(
-            sachData => {
-                setDanhSachQuyenSach(sachData);
+            kq => {
+                setDanhSachQuyenSach(kq.ketQua);
                 setDangTaiDuLieu(false);
             }
         ).catch(
