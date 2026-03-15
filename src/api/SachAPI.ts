@@ -58,3 +58,10 @@ export async function lay3SachMoiNhat(): Promise<KetQuaInterface> {
     const duongDan:string = 'http://localhost:8080/sach?sort=maSach,desc&page=0&size=3';
     return laySach(duongDan);
 }
+
+export async function timKiemSach(tuKhoaTimKiem: string, trangHienTai:number): Promise<KetQuaInterface> {
+    let duongDan:string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
+    if(tuKhoaTimKiem!==''){
+    duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=${trangHienTai}&tenSach=${tuKhoaTimKiem}`;    }
+    return laySach(duongDan);
+}

@@ -1,6 +1,21 @@
-import React from "react";
+import React, { ChangeEvent, use, useState } from "react";
 
-function Navbar() {
+interface NavbarProps{
+    tuKhoaTimKiem: string;
+    setTuKhoaTimKiem: (tuKhoa: string)=>void;
+}
+
+function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
+    
+    const [tuKhoaTamThoi, setTuKhoaTamThoi] = useState('');
+
+
+    const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>)=>{ // Khi nhập
+        setTuKhoaTamThoi(e.target.value);
+    }
+    const handleSearch = () => { //khi click chuột
+        setTuKhoaTimKiem(tuKhoaTamThoi);
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-2">
             <div className="container-fluid px-4">
@@ -44,10 +59,10 @@ function Navbar() {
                     </ul>
 
                     {/* Tìm kiếm (Thêm mb-3 trên mobile, mb-lg-0 trên PC) */}
-                    <form className="d-flex mb-3 mb-lg-0 me-lg-4">
-                        <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div className="d-flex mb-3 mb-lg-0 me-lg-4">
+                        <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" onChange={onSearchInputChange} value={tuKhoaTamThoi} />
+                        <button className="btn btn-outline-success" type="button" onClick={handleSearch}>Search</button>
+                    </div>
 
                     {/* Biểu tượng giỏ hàng & đăng nhập (Gộp chung để nằm ngang trên mobile) */}
                     <ul className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end gap-4">
