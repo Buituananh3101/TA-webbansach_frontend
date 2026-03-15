@@ -6,9 +6,10 @@ import { Pagination } from "../utils/pagination";
 
 interface DanhSachSanPhamProps {
     tuKhoaTimKiem: string;
+    maTheLoai: number;
 }
 
-function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
+function DanhSachSanPham({ tuKhoaTimKiem, maTheLoai }: DanhSachSanPhamProps) {
 
     const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState<boolean>(true);
@@ -21,37 +22,55 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
         setTrangHienTai(1);
     }, [tuKhoaTimKiem]);
 
-    useEffect(() => {
-        if (tuKhoaTimKiem.trim() === '') {
-            layToanBoSach(trangHienTai - 1).then( 
-                kq => {
-                    setDanhSachQuyenSach(kq.ketQua);
-                    setTongSoTrang(kq.tongSoTrang);
-                    setDangTaiDuLieu(false);
-                }
-            ).catch(
-                error => {
-                    setBaoLoi(error.message);
-                    setDangTaiDuLieu(false);
-                }
-            );
-        } else {
-            // SỬA Ở ĐÂY: Truyền thêm (trangHienTai - 1) vào hàm timKiemSach
-            timKiemSach(tuKhoaTimKiem, trangHienTai - 1).then(
-                kq => {
-                    setDanhSachQuyenSach(kq.ketQua);
-                    setTongSoTrang(kq.tongSoTrang);
-                    setDangTaiDuLieu(false);
-                }
-            ).catch(
-                error => {
-                    setBaoLoi(error.message);
-                    setDangTaiDuLieu(false);
-                }
-            );
-        }
+    // useEffect(() => {
+    //     if (tuKhoaTimKiem.trim() === '') {
+    //         layToanBoSach(trangHienTai - 1).then( 
+    //             kq => {
+    //                 setDanhSachQuyenSach(kq.ketQua);
+    //                 setTongSoTrang(kq.tongSoTrang);
+    //                 setDangTaiDuLieu(false);
+    //             }
+    //         ).catch(
+    //             error => {
+    //                 setBaoLoi(error.message);
+    //                 setDangTaiDuLieu(false);
+    //             }
+    //         );
+    //     } else {
+    //         // SỬA Ở ĐÂY: Truyền thêm (trangHienTai - 1) vào hàm timKiemSach
+    //         timKiemSach(tuKhoaTimKiem, maTheLoai, trangHienTai - 1).then(
+    //             kq => {
+    //                 setDanhSachQuyenSach(kq.ketQua);
+    //                 setTongSoTrang(kq.tongSoTrang);
+    //                 setDangTaiDuLieu(false);
+    //             }
+    //         ).catch(
+    //             error => {
+    //                 setBaoLoi(error.message);
+    //                 setDangTaiDuLieu(false);
+    //             }
+    //         );
+    //     }
 
-    }, [trangHienTai, tuKhoaTimKiem] 
+    // }, [trangHienTai, tuKhoaTimKiem, maTheLoai] 
+    // )
+
+    useEffect(() => {
+
+        timKiemSach(tuKhoaTimKiem, maTheLoai, trangHienTai - 1).then(
+            kq => {
+                setDanhSachQuyenSach(kq.ketQua);
+                setTongSoTrang(kq.tongSoTrang);
+                setDangTaiDuLieu(false);
+            }
+        ).catch(
+            error => {
+                setBaoLoi(error.message);
+                setDangTaiDuLieu(false);
+            }
+        );
+        
+    }, [trangHienTai, tuKhoaTimKiem, maTheLoai] 
     )
 
     const phanTrang = (trangMoi: number) => setTrangHienTai(trangMoi);
@@ -76,7 +95,7 @@ function DanhSachSanPham({ tuKhoaTimKiem }: DanhSachSanPhamProps) {
         return (
             <div className="container">
                 <div className="row mt-4 mb-4 text-center">
-                    <h1>:v Sách bạn cần chúng tôi không có</h1>
+                    <h1>:v Sách bạn cần chúng tôi không bán</h1>
                 </div>
             </div>
         );

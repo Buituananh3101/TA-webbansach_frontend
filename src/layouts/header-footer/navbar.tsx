@@ -1,4 +1,5 @@
-import React, { ChangeEvent, use, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface NavbarProps{
     tuKhoaTimKiem: string;
@@ -20,7 +21,7 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-2">
             <div className="container-fluid px-4">
                 {/* Logo / Brand */}
-                <a className="navbar-brand fs-4 me-4" href="#">Bookstore</a>
+                <Link className="navbar-brand fs-4 me-4" to="/">Bookstore</Link>
 
                 {/* Nút Toggle (Sẽ luôn nằm gọn ở bên phải nhờ container-fluid) */}
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,15 +34,20 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                     {/* Các menu bên trái */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-center text-lg-start">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                            <Link className="nav-link active" aria-current="page" to="/">Trang chủ</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Thể loại sách
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Tiểu thuyết</a></li>
-                                <li><a className="dropdown-item" href="#">Sách giáo khoa</a></li>
+                                <li><Link className="dropdown-item" to="/0">Tất cả</Link></li>
+                                <li><Link className="dropdown-item" to="/1">Tiểu thuyết</Link></li>
+                                <li><Link className="dropdown-item" to="/2">Sách giáo khoa</Link></li>
+                                <li><Link className="dropdown-item" to="/3">Sách giáo </Link></li>
+                                <li><Link className="dropdown-item" to="/4">Sách </Link></li>
+                                <li><Link className="dropdown-item" to="/5">Sách </Link></li>
+                                <li><Link className="dropdown-item" to="/6">Sách </Link></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -54,7 +60,7 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Liên hệ</a>
+                            <Link className="nav-link" to="/about">Về Bookstore</Link>
                         </li>
                     </ul>
 
