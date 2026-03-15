@@ -53,13 +53,24 @@ import React, { useEffect, useState } from "react";
         }
 
         return (
-            <div className="row align-items-center">
+            <div className="row align-items-center py-5" style={{ position: 'relative', overflow: 'hidden' }}>
+                {/* Lớp nền mờ sử dụng chính ảnh của sách */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundImage: `url(${duLieuAnh})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: 'blur(50px) brightness(0.7)',
+                    zIndex: -1
+                }}></div>
+
                 <div className="col-5 text-center">
-                    <img src={duLieuAnh} className="float-end" alt="..." style={{ height: '250px' }} />
+                    <img src={duLieuAnh} className="float-end shadow-lg" alt={props.sach.tenSach} style={{ height: '250px', borderRadius: '8px' }} />
                 </div>
-                <div className="col-7">
-                    <h5>{props.sach.tenSach}</h5>
-                    <p>{props.sach.moTa}</p>
+                <div className="col-7 text-white">
+                    <h5 className="display-6">{props.sach.tenSach}</h5>
+                    <p className="lead">{props.sach.moTa}</p>
                 </div>
             </div>
         )

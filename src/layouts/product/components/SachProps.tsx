@@ -52,15 +52,18 @@
         return (
             <div className="col-md-3 mt-2">
                 <div className="card">
-                    {
-                        danhSachAnh[0] && danhSachAnh[0].duLieuAnh && <img
-                        src={`${danhSachAnh[0].duLieuAnh}`}
-                        className="card-img-top"
-                        alt={props.sach.tenSach}
-                        style={{ height: '200px' }}
-                    />
-                    }
-                    
+                    <div style={{ height: '200px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        {
+                            danhSachAnh[0] && danhSachAnh[0].duLieuAnh ? (
+                                <img
+                                    src={`${danhSachAnh[0].duLieuAnh}`}
+                                    className="card-img-top"
+                                    alt={props.sach.tenSach}
+                                    style={{ height: '100%', width: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                                />
+                            ) : <i className="fas fa-image fa-3x text-muted"></i>
+                        }
+                    </div>
 
                     <div className="card-body">
                         <h5 className="card-title" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{props.sach.tenSach}</h5>
