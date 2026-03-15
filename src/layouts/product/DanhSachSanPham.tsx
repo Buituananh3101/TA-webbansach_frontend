@@ -6,14 +6,14 @@ import { layToanBoSach } from "../../api/SachAPI";
 
 const DanhSachSanPham: React.FC = () => {
 
-    const [danhSachQuyenSach, setdanhSachQuyenSach] = useState<SachModel[]>([]);
+    const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
     const [dangTaiDuLieu, setDangTaiDuLieu] = useState<boolean>(true);
     const [baoLoi,setBaoLoi] = useState(null);
 
     useEffect(() => {
         layToanBoSach().then(
             sachData => {
-                setdanhSachQuyenSach(sachData);
+                setDanhSachQuyenSach(sachData);
                 setDangTaiDuLieu(false);
             }
         ).catch(

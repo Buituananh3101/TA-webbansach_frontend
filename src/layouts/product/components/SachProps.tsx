@@ -1,7 +1,7 @@
     import React, { useEffect, useState } from "react";
     import SachModel from "../../../model/SachModel";
     import HinhAnhModel from "../../../model/HinhAnhModel";
-    import { layToanBoAnhCuaMotSach } from "../../../api/HinhAnhAPI";
+    import { lay1AnhCuaMotSach, layToanBoAnhCuaMotSach } from "../../../api/HinhAnhAPI";
 
     interface SachPropsInterface{
         sach: SachModel;
@@ -15,7 +15,7 @@
         const [baoLoi,setBaoLoi] = useState(null);
 
         useEffect(() => {
-            layToanBoAnhCuaMotSach(maSach).then(
+            lay1AnhCuaMotSach(maSach).then(
                 hinhAnhData => {
                     setDanhSachAnh(hinhAnhData);
                     setDangTaiDuLieu(false);

@@ -1,17 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SachModel from "../../../model/SachModel";
+import { lay3SachMoiNhat } from "../../../api/SachAPI";
+import CarouselItem from "./CarouselItem";
 
-function Carousel(){
-    return(
+const Carousel: React.FC = () => {
+
+    const [danhSachQuyenSach, setDanhSachQuyenSach] = useState<SachModel[]>([]);
+    const [dangTaiDuLieu, setDangTaiDuLieu] = useState<boolean>(true);
+    const [baoLoi, setBaoLoi] = useState(null);
+
+    useEffect(() => {
+        lay3SachMoiNhat().then(
+            sachData => {
+                setDanhSachQuyenSach(sachData);
+                setDangTaiDuLieu(false);
+            }
+        ).catch(
+            error => {
+                setBaoLoi(error.message);
+                setDangTaiDuLieu(false);
+            }
+        );
+    }, [] // Chỉ gọi một lần
+    )
+
+    if (dangTaiDuLieu) {
+        return (
+            <div>  
+                <h1>Đang tải dữ liệu</h1>
+            </div>
+        )
+    }
+
+    if (baoLoi) {
+        return (
+            <div>
+                <h1>Gặp lỗi: {baoLoi}</h1>
+            </div>
+        )
+    }
+
+    // Đề phòng trường hợp API trả về mảng rỗng
+    if (!danhSachQuyenSach || danhSachQuyenSach.length === 0) {
+        return <div>Không có dữ liệu sách.</div>;
+    }
+
+    return (
         <div id="carouselExample" className="carousel slide">
             <div className="carousel-inner">
-                <div className="carousel-item active">
-                    <img src={'./../../../images/book/i1.png'}  alt="..." style={{height:'250px'}} />
+                {/* Item 1 */}
+                <div className="carousel-item active" data-bs-interval="10000">
+                    <CarouselItem key={0} sach={danhSachQuyenSach[0]} />
                 </div>
+                
+                {/* Item 2 */}
                 <div className="carousel-item">
-                    <img src={'./../../../images/book/i2.png'}  alt="..." style={{height:'250px'}} />
+                    <CarouselItem key={1} sach={danhSachQuyenSach[1]} />
                 </div>
+
+                {/* Item 3 */}
                 <div className="carousel-item">
-                    <img src={'./../../../images/book/i3.png'}  alt="..." style={{height:'250px'}} />
+                    <CarouselItem key={2} sach={danhSachQuyenSach[2]} />
                 </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
