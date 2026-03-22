@@ -8,6 +8,7 @@ interface KetQuaInterface {
   tongSoTrang: number;
   tongSoSach: number;
 }
+//--------------------------------------------------------------------------------------------------------------------------------------
 
 /**
  * Hàm lấy danh sách toàn bộ sách từ API
@@ -47,6 +48,8 @@ async function laySach(duongDan: string): Promise<KetQuaInterface> {
   return { ketQua: ketQua, tongSoTrang: tongSoTrang, tongSoSach: tongSoSach };
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 export async function layToanBoSach(
   trangHienTai: number,
 ): Promise<KetQuaInterface> {
@@ -54,11 +57,15 @@ export async function layToanBoSach(
   return laySach(duongDan);
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 export async function lay3SachMoiNhat(): Promise<KetQuaInterface> {
   const duongDan: string =
     "http://localhost:8080/sach?sort=maSach,desc&page=0&size=3";
   return laySach(duongDan);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------
 
 // export async function timKiemSach(tuKhoaTimKiem: string, trangHienTai:number): Promise<KetQuaInterface> {
 //     let duongDan:string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
@@ -66,6 +73,8 @@ export async function lay3SachMoiNhat(): Promise<KetQuaInterface> {
 //     duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=${trangHienTai}&tenSach=${tuKhoaTimKiem}`;    }
 //     return laySach(duongDan);
 // }
+
+//--------------------------------------------------------------------------------------------------------------------------------------
 
 export async function timKiemSach(
   tuKhoaTimKiem: string,
@@ -75,11 +84,59 @@ export async function timKiemSach(
   let duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
 
   if (tuKhoaTimKiem !== "" && maTheLoai == 0) {
+
     duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=${trangHienTai}&tenSach=${tuKhoaTimKiem}`;
+  
   } else if (tuKhoaTimKiem === "" && maTheLoai > 0) {
+
     duongDan = `http://localhost:8080/sach/search/findByDanhSachTheLoai_MaTheLoai?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}`;
+  
   } else if (tuKhoaTimKiem !== "" && maTheLoai > 0) {
+
     duongDan = `http://localhost:8080/sach/search/findByTenSachContainingAndDanhSachTheLoai_MaTheLoai?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}&tenSach=${tuKhoaTimKiem}`;
+  
   }
   return laySach(duongDan);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+
+export async function laySachTheoMaSach(maSach: number): Promise<SachModel | null>{
+
+  const duongDan: string = `http://localhost:8080/sach/${maSach}`;
+
+  try {
+
+    const response = await fetch(duongDan);
+
+
+    if(!response.ok){
+      throw new Error("Găp lỗi trong quá trình gọi API lấy sách");
+    }
+
+    const sachData = await response.json();
+
+    if (sachData) {
+      return {
+        maSach: sachData.maSach,
+        tenSach: sachData.tenSach,
+        tenTacGia: sachData.tenTacGia,
+        isbn: sachData.isbn,
+        moTa: sachData.moTa,
+        giaNiemYet: sachData.giaNiemYet,
+        giaBan: sachData.giaBan,
+        soLuong: sachData.soLuong,
+        trungBinhXepHang: sachData.trungBinhXepHang,
+      };
+
+    } else {
+      throw new Error("Sách không tồn tại");
+    }
+
+  } catch (error) {
+    console.error("Error: ", error);
+    return null;
+  }
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------

@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Fix for react-responsive-carousel breaking Bootstrap carousel images */
+#carouselExample img {
+  width: auto;
+  pointer-events: auto;
+}

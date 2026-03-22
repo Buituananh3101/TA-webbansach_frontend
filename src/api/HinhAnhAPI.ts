@@ -4,6 +4,8 @@ import SachModel from "../model/HinhAnhModel";
 import { my_request } from "./Request";
 import HinhAnhModel from "../model/HinhAnhModel";
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 export async function layAnhCuaMotSach(duongDan:string): Promise<HinhAnhModel[]>{
     const ketQua:HinhAnhModel[]=[];
 
@@ -27,14 +29,20 @@ export async function layAnhCuaMotSach(duongDan:string): Promise<HinhAnhModel[]>
     return ketQua;
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 export async function layToanBoAnhCuaMotSach(maSach:number): Promise<HinhAnhModel[]> {
     const ketQua:HinhAnhModel[]=[];
     const duongDan:string = `http://localhost:8080/sach/${maSach}/danhSachHinhAnh`;
     return layAnhCuaMotSach(duongDan);
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
 export async function lay1AnhCuaMotSach(maSach:number): Promise<HinhAnhModel[]> {
     const ketQua:HinhAnhModel[]=[];
     const duongDan:string = `http://localhost:8080/sach/${maSach}/danhSachHinhAnh?sort=maHinhAnh,asc&page=0&size=1`;
     return layAnhCuaMotSach(duongDan);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------------------

@@ -10,6 +10,8 @@ class SachModel{
     giaBan?: number;
     soLuong?: number;
     trungBinhXepHang?: number;
+    thongTinChiTiet?: string;
+
 
     constructor(
         maSach: number,
@@ -20,7 +22,8 @@ class SachModel{
         giaNiemYet?: number,
         giaBan?: number,
         soLuong?: number,
-        trungBinhXepHang?: number
+        trungBinhXepHang?: number,
+        thongTinChiTiet?: string
     ) {
         this.maSach = maSach;
         this.tenSach = tenSach;
@@ -31,6 +34,7 @@ class SachModel{
         this.giaBan = giaBan;
         this.soLuong = soLuong;
         this.trungBinhXepHang = trungBinhXepHang;
+        this.thongTinChiTiet = thongTinChiTiet;
     }
 
 }
