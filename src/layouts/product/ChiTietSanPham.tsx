@@ -84,7 +84,7 @@ const ChiTietSanPham: React.FC = () => {
                                 {sach.giaBan}
                             </h4>
                             <hr />
-                                <div dangerouslySetInnerHTML={{__html:(sach.+'')}}/>
+                                <div dangerouslySetInnerHTML={{__html:(sach.thongTinChiTiet+'')}}/>
                                 
                             <hr />
                         </div>

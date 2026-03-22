@@ -127,6 +127,7 @@ export async function laySachTheoMaSach(maSach: number): Promise<SachModel | nul
         giaBan: sachData.giaBan,
         soLuong: sachData.soLuong,
         trungBinhXepHang: sachData.trungBinhXepHang,
+        thongTinChiTiet: sachData.thongTinChiTiet,
       };
 
     } else {
