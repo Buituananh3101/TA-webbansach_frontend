@@ -1,0 +1,79 @@
+    // const handleTenDangNhapChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     // Thay đổi giá trị
+    //     const tenDangNhap = e.target.value;
+    //     setTenDangNhap(tenDangNhap);
+    //     // Kiểm tra
+    //     setErrorTenDangNhap('');
+    //     // Endpoint
+    //     const url = `http://localhost:8080/nguoi-dung/search/existsByTenDangNhap?tenDangNhap=${tenDangNhap}`;
+    //     // Call 
+    //     try {
+    //         const response = await fetch(url);
+    //         const data = await response.text();
+    //         if (data === "true") {
+    //             setErrorTenDangNhap("Tên đăng nhập đã tồn tại");
+    //             return true;
+    //         }
+    //         return false;
+    //     } catch (error) {
+    //         console.error("Lỗi khi kiểm tra tên đăng nhập", error);
+    //         return false; // Xảy ra lỗi
+    //     }
+
+
+    // }
+
+    // const handleEmailChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     // Thay đổi giá trị
+    //     const email = e.target.value;
+    //     setEmail(email);
+    //     // Kiểm tra
+    //     setErrorEmail('');
+    //     // Endpoint
+    //     const url = `http://localhost:8080/nguoi-dung/search/existsByEmail?email=${email}`;
+    //     // Call 
+    //     try {
+    //         const response = await fetch(url);
+    //         const data = await response.text();
+    //         if (data === "true") {
+    //             setErrorEmail("Email đã tồn tại");
+    //             return true;
+    //         }
+    //         return false;
+    //     } catch (error) {
+    //         console.error("Lỗi khi kiểm tra email", error);
+    //         return false; // Xảy ra lỗi
+    //     }
+    // }
+
+    // const handleSoDienThoaiChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const soDienThoai = e.target.value;
+    //     setSoDienThoai(soDienThoai);
+    //     setErrorSoDienThoai('');
+
+    //     const phoneRegex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
+    //     if (soDienThoai.trim() !== '' && !phoneRegex.test(soDienThoai)) {
+    //         setErrorSoDienThoai("Số điện thoại không đúng định dạng (10 số, bắt đầu bằng 03, 05, 07, 08, 09).");
+    //     }
+    // }
+
+    // const handleMatKhauChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const matKhau = e.target.value;
+    //     setMatKhau(matKhau);
+    //     setErrorMatKhau('');
+
+    //     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Kiểm tra mật khẩu (ví dụ: ít nhất 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt)
+    //     if (!passwordRegex.test(matKhau)) {
+    //         setErrorMatKhau("Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt.");
+    //     }
+    // }
+
+    // const handleMatKhauLapLaiChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const matKhauLapLai = e.target.value;
+    //     setMatKhauLapLai(matKhauLapLai);
+    //     setErrorMatKhauLapLai('');
+    //     if (matKhauLapLai !== matKhau) {
+    //         setErrorMatKhauLapLai("Mật khẩu nhập lại không khớp.");
+    //     }
+    // }
+
