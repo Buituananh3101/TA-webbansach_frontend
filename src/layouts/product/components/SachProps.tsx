@@ -3,6 +3,8 @@ import SachModel from "../../../model/SachModel";
 import HinhAnhModel from "../../../model/HinhAnhModel";
 import { lay1AnhCuaMotSach, layToanBoAnhCuaMotSach } from "../../../api/HinhAnhAPI";
 import { Link } from "react-router-dom";
+import renderRating from "../../utils/SaoXepHang";
+import DinhDangSo from "../../utils/DinhDangSo";
 
 interface SachPropsInterface {
     sach: SachModel;
@@ -52,10 +54,10 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
 
     return (
         <div className="col-md-3 mt-2">
-            <div className="card">
+            <div className="card shadow-sm rounded-3 overflow-hidden">
                 {/* link ma sach */}
                 <Link to={`/sach/${props.sach.maSach}`}> 
-                    <div style={{ height: '200px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative' }}>
+                    <div style={{ height: '200px', backgroundColor: '#f8f9fa', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', borderTopLeftRadius: 'calc(0.5rem - 1px)', borderTopRightRadius: 'calc(0.5rem - 1px)' }}>
                         {
                             danhSachAnh[0] && danhSachAnh[0].duLieuAnh ? (
                                 <>
@@ -80,21 +82,22 @@ const SachProps: React.FC<SachPropsInterface> = (props) => {
                     </Link>
                     <div className="price">
                         <span className="original-price">
-                            <del>{props.sach.giaNiemYet}</del>
+                            <del className="me-2">{DinhDangSo(props.sach.giaNiemYet)}</del>
                         </span>
                         <span className="discounted-price">
-                            <strong>{props.sach.giaBan}</strong>
+                            <strong>{DinhDangSo(props.sach.giaBan)} đ</strong>
                         </span>
                     </div>
 
-                    <div className="row mt-2" role="group">
-                        <div className="col-6">
-                            <a href="#" className="btn btn-secondary btn-block">
-                                <i className="fas fa-heart"></i>
-                            </a>
+                    <div className="d-flex justify-content-between align-items-center mt-2">
+                        <div className="rating">
+                            {renderRating(props.sach.trungBinhXepHang ? props.sach.trungBinhXepHang : 0)}
                         </div>
-                        <div className="col-6">
-                            <button className="btn btn-danger btn-block">
+                        <div className="actions">
+                            <button className="btn btn-outline-secondary btn-sm me-1">
+                                <i className="fas fa-heart"></i>
+                            </button>
+                            <button className="btn btn-danger btn-sm">
                                 <i className="fas fa-shopping-cart"></i>
                             </button>
                         </div>

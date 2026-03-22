@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SachModel from "../../../model/SachModel";
-import HinhAnhModel from "../../../model/HinhAnhModel";
 import { layToanBoDanhGiaCuaMotSach } from "../../../api/SuDanhGiaAPI";
-import { Link } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import SuDanhGiaModel from "../../../model/SuDanhGiaModel";
+import renderRating from "../../utils/SaoXepHang";
 
 interface DanhGiaSanPham {
     maSach: number;
@@ -36,6 +33,8 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPham> = (props) => {
     }, [] // Chỉ gọi một lần
     )
 
+
+
     if (dangTaiDuLieu) {
         return (
             <div>
@@ -60,7 +59,7 @@ const DanhGiaSanPham: React.FC<DanhGiaSanPham> = (props) => {
                 danhSachDanhGia.map((danhGia, index) => (
                     <div className="row" >
                         <div className="col-4 text-end">
-                            <h3>{danhGia.diemXepHang}</h3>
+                            <p>{renderRating(danhGia.diemXepHang?danhGia.diemXepHang:0)}</p>
                         </div>
                         <div className="col-8 text-start">
                             <p>{danhGia.nhanXet}</p>
