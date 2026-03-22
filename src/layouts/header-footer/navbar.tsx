@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 interface NavbarProps{
     tuKhoaTimKiem: string;
@@ -34,20 +34,20 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                     {/* Các menu bên trái */}
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-center text-lg-start">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Trang chủ</Link>
+                            <NavLink className="nav-link" aria-current="page" to="/">Trang chủ</NavLink>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Thể loại sách
                             </a>
                             <ul className="dropdown-menu">
-                                <li><Link className="dropdown-item" to="/0">Tất cả</Link></li>
-                                <li><Link className="dropdown-item" to="/1">Tiểu thuyết</Link></li>
-                                <li><Link className="dropdown-item" to="/2">Sách giáo khoa</Link></li>
-                                <li><Link className="dropdown-item" to="/3">Sách giáo </Link></li>
-                                <li><Link className="dropdown-item" to="/4">Sách </Link></li>
-                                <li><Link className="dropdown-item" to="/5">Sách </Link></li>
-                                <li><Link className="dropdown-item" to="/6">Sách </Link></li>
+                                <li><NavLink className="dropdown-item" to="/0">Tất cả</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/1">Tiểu thuyết</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/2">Sách giáo khoa</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/3">Sách giáo </NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/4">Sách </NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/5">Sách </NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/6">Sách </NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
@@ -60,7 +60,7 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/about">Về Bookstore</Link>
+                            <NavLink className="nav-link" to="/about">Về Bookstore</NavLink>
                         </li>
                     </ul>
 
