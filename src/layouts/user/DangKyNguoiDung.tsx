@@ -56,7 +56,7 @@ function DangKyNguoiDung() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                    },
+                    },  
                     body: JSON.stringify({
                         tenDangNhap: tenDangNhap,
                         email: email,
@@ -69,15 +69,15 @@ function DangKyNguoiDung() {
                 });
 
                 if(response.ok){
-                    setThongBao("Đăng ký thành công, xem email để kích hoạt tài khoản")
+                    setThongBao(":) Đăng ký thành công, xem email để kích hoạt tài khoản")
                 }else{
-                    setThongBao("Anh kiểm tra lại thông tin đăng ký giúp emm")
+                    setThongBao(":( Anh kiểm tra lại thông tin đăng ký giúp emm")
                 }
 
                 // const data = await response.json();
                 
             } catch (error) {
-                setThongBao("Anh kiểm tra lại thông tin đăng ký giúp emmm")
+                setThongBao(":( Anh kiểm tra lại thông tin đăng ký giúp emmm")
 
             }
         }
@@ -266,7 +266,7 @@ function DangKyNguoiDung() {
 
                     <div className="text-end">
                         <button type="submit" className="btn btn-primary">Đăng ký</button>
-                        <div className="mt-1" style={{ color: 'red' }}>{thongBao}</div>
+                        <div className="mt-1" style={{ color: 'green' }}>{thongBao}</div>
                     </div>
 
                 </form>
