@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import { Search } from "react-bootstrap-icons";
 import { Link, NavLink } from "react-router-dom";
 
 interface NavbarProps{
@@ -67,7 +68,7 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                     {/* Tìm kiếm (Thêm mb-3 trên mobile, mb-lg-0 trên PC) */}
                     <div className="d-flex mb-3 mb-lg-0 me-lg-4">
                         <input className="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" onChange={onSearchInputChange} value={tuKhoaTamThoi} />
-                        <button className="btn btn-outline-success" type="button" onClick={handleSearch}>Search</button>
+                        <button className="btn btn-outline-success" type="button" onClick={handleSearch}><Search/></button>
                     </div>
 
                     {/* Biểu tượng giỏ hàng & đăng nhập (Gộp chung để nằm ngang trên mobile) */}
