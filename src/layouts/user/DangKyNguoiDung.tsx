@@ -18,6 +18,7 @@ function DangKyNguoiDung() {
 
     //------------------------------------------------------------------------------------------------------------------------------------
     // Các biến báo lỗi
+    
     const [errorTenDangNhap, setErrorTenDangNhap] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorMatKhau, setErrorMatKhau] = useState('');
