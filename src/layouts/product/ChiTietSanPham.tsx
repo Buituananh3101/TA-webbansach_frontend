@@ -400,6 +400,11 @@ const styles = `
 
 const ChiTietSanPham: React.FC = () => {
 
+    // Cuộn lên đầu trang thật mượt mà khi vừa vào
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
     //-----------------------------------------------------------------------------------------------------------------------------------------
     // Lấy mã sách từ URL 
 
