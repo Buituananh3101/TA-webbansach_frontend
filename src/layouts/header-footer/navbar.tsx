@@ -79,9 +79,9 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <NavLink className="nav-link" to="/dang-nhap">
                                 <i className="fas fa-user fs-5"></i>
-                            </a>
+                            </NavLink>
                         </li>
                     </ul>
 

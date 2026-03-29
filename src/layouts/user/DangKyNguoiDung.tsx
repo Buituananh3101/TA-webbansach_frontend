@@ -13,12 +13,13 @@ function DangKyNguoiDung() {
     const [matKhau, setMatKhau] = useState('');
     const [matKhauLapLai, setMatKhauLapLai] = useState('');
     const [gioiTinh, setGioiTinh] = useState('');
+    const [avatar, setAvatar] = useState<File | null>(null);
 
 
 
     //------------------------------------------------------------------------------------------------------------------------------------
     // Các biến báo lỗi
-    
+
     const [errorTenDangNhap, setErrorTenDangNhap] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
     const [errorMatKhau, setErrorMatKhau] = useState('');
@@ -26,11 +27,23 @@ function DangKyNguoiDung() {
     const [errorSoDienThoai, setErrorSoDienThoai] = useState('');
     const [thongBao, setThongBao] = useState('');
 
+    //------------------------------------------------------------------------------------------------------------------------------------
+    // Convert file to Base64
+
+    // const getBase64 = (file: File): Promise<string | null> => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result ? (reader.result as string).split(',')[1] : null);
+    //         reader.onerror = (error) => reject(error);
+    //     });
+    // };
+
 
     //------------------------------------------------------------------------------------------------------------------------------------
     // Handle
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
         // Xóa 
         setErrorTenDangNhap('');
@@ -50,14 +63,19 @@ function DangKyNguoiDung() {
         const isSoDienThoaiValid = checkLoiSoDienThoai(soDienThoai);
 
         // Kiểm tra tất cả các điều kiện
-        if (isTenDangNhapValid && isEmailValid && isMatKhauValid && isMatKhauLapLaiValid && isSoDienThoaiValid){
+        if (isTenDangNhapValid && isEmailValid && isMatKhauValid && isMatKhauLapLaiValid && isSoDienThoaiValid) {
+
+            // const base64Avatar = avatar ? await getBase64(avatar) : null;
+            // console.log(base64Avatar);
+
+
             try {
                 const url = 'http://localhost:8080/tai-khoan/dang-ky';
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                    },  
+                    },
                     body: JSON.stringify({
                         tenDangNhap: tenDangNhap,
                         email: email,
@@ -65,20 +83,21 @@ function DangKyNguoiDung() {
                         ten: ten,
                         soDienThoai: soDienThoai,
                         matKhau: matKhau,
-                        gioiTinh: gioiTinh, 
+                        gioiTinh: gioiTinh,
                         daKichHoat: 0,
                         maKichHoat: ""
+                        // avatar: base64Avatar
                     }),
                 });
 
-                if(response.ok){
+                if (response.ok) {
                     setThongBao(":) Đăng ký thành công, xem email để kích hoạt tài khoản")
-                }else{
+                } else {
                     setThongBao(":( Anh kiểm tra lại thông tin đăng ký giúp emm")
                 }
 
                 // const data = await response.json();
-                
+
             } catch (error) {
                 setThongBao(":( Anh kiểm tra lại thông tin đăng ký giúp emmm")
 
@@ -92,7 +111,7 @@ function DangKyNguoiDung() {
     //------------------------------------------------------------------------------------------------------------------------------------
     // Hàm check
     // Bắt enevnt
-    
+
     const checkLoiTenDangNhap = async (tenDangNhapValue: string) => {
         setErrorTenDangNhap('');
         if (tenDangNhapValue.trim() === '') {
@@ -204,14 +223,26 @@ function DangKyNguoiDung() {
         return checkLoiMatKhauLapLai(e.target.value);
     }
 
+    // const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files) {
+    //         const file = e.target.files[0];
+    //         setAvatar(file);
+    //     }
+    // };
+
+
+
     //------------------------------------------------------------------------------------------------------------------------------------
     // Form
 
     return (
-        <div className="container">
-            <h1 className="mt-5 text-center">Đăng kí</h1>
-            <div className="mb-3 col-md-6 col-12 mx-auto" >
-                <form onSubmit={handleSubmit} className="form">
+        <div className="container mb-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8 col-lg-6 mt-5">
+                    <div className="card shadow">
+                        <div className="card-body p-4">
+                            <h2 className="text-center mb-4">Đăng Ký Tài Khoản</h2>
+                            <form onSubmit={handleSubmit}>
                     {/* Tên đăng nhập */}
                     <div className="mb-3 text-start">
                         <label htmlFor="tenDangNhap" className="form-label">Tên đăng nhập</label>
@@ -266,15 +297,30 @@ function DangKyNguoiDung() {
                         <input type="password" className="form-control" id="matKhauLapLai" value={matKhauLapLai} onChange={handleMatKhauLapLaiChange} />
                         <div className="mt-1" style={{ color: 'red' }}>{errorMatKhauLapLai}</div>
                     </div>
-
-                    <div className="text-end">
-                        <button type="submit" className="btn btn-primary">Đăng ký</button>
-                        <div className="mt-1" style={{ color: 'green' }}>{thongBao}</div>
+                    {/* Ảnh đại diện */}
+                    {/* <div className="mb-3 text-start">
+                        <label htmlFor="avatar" className="form-label">Ảnh đại diện</label>
+                        <input type="file" className="form-control" id="avatar" accept="image/*" onChange={handleAvatarChange} />
                     </div>
-
-                </form>
+                     */}
+                     
+                                {thongBao && (
+                                    <div className={`alert ${thongBao.includes(':)') ? 'alert-success' : 'alert-danger'}`}>
+                                        {thongBao}
+                                    </div>
+                                )}
+                                <div className="d-grid gap-2">
+                                    <button type="submit" className="btn btn-primary">Đăng ký</button>
+                                </div>
+                                <hr />
+                                <div className="text-center">
+                                    <p>Đã có tài khoản? <a href="/dang-nhap" className="text-decoration-none">Đăng nhập ngay</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     )
 }
