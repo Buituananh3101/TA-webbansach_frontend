@@ -13,6 +13,7 @@ import DangNhap from './layouts/user/DangNhap';
 import Test from './layouts/user/Test';
 import SachForm from './layouts/admin/SachForm';
 import SachForm_Admin from './layouts/admin/SachForm';
+import XoaSach_Admin from './layouts/admin/XoaSach'; //123
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/dang-nhap' element={<DangNhap />} />
           <Route path='/test' element={<Test />} />
           <Route path='/admin/sach-form' element={<SachForm_Admin />} />
+          <Route path='/admin/xoa-sach' element={<XoaSach_Admin />} /> {/*//123*/}
 
         </Routes>
 
