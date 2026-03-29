@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Search } from "react-bootstrap-icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 interface NavbarProps{
     tuKhoaTimKiem: string;
@@ -10,7 +11,36 @@ interface NavbarProps{
 function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
     
     const [tuKhoaTamThoi, setTuKhoaTamThoi] = useState('');
+    const [daDangNhap, setDaDangNhap] = useState(false);
+    const [tenDangNhap, setTenDangNhap] = useState('');
+    const navigate = useNavigate();
 
+    // Kiểm tra trạng thái đăng nhập từ token
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decoded: any = jwtDecode(token);
+                // Kiểm tra token còn hạn không
+                if (decoded.exp && decoded.exp * 1000 > Date.now()) {
+                    setDaDangNhap(true);
+                    setTenDangNhap(decoded.sub || 'Tài khoản');
+                } else {
+                    // Token hết hạn → tự xóa
+                    localStorage.removeItem("token");
+                }
+            } catch {
+                localStorage.removeItem("token");
+            }
+        }
+    }, []);
+
+    const handleDangXuat = () => {
+        localStorage.removeItem("token");
+        setDaDangNhap(false);
+        setTenDangNhap('');
+        navigate('/dang-nhap');
+    };
 
     const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>)=>{ // Khi nhập
         setTuKhoaTamThoi(e.target.value);
@@ -70,18 +100,43 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                         <button className="btn btn-outline-success" type="button" onClick={handleSearch}><Search/></button>
                     </div>
 
-                    {/* Biểu tượng giỏ hàng & đăng nhập (Gộp chung để nằm ngang trên mobile) */}
-                    <ul className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end gap-4">
+                    {/* Giỏ hàng & Tài khoản */}
+                    <ul className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end align-items-center gap-3">
                         <li className="nav-item">
                             <a className="nav-link" href="#">
                                 <i className="fas fa-shopping-cart fs-5"></i>
                             </a>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/dang-nhap">
-                                <i className="fas fa-user fs-5"></i>
-                            </NavLink>
-                        </li>
+
+                        {daDangNhap ? (
+                            /* Dropdown tài khoản khi đã đăng nhập */
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="fas fa-user-circle fs-5"></i>
+                                    <span className="d-none d-lg-inline" style={{ fontSize: '0.9rem' }}>{tenDangNhap}</span>
+                                </a>
+                                <ul className="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <span className="dropdown-item-text text-muted small">
+                                            Xin chào, <strong>{tenDangNhap}</strong>!
+                                        </span>
+                                    </li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li>
+                                        <button className="dropdown-item text-danger fw-semibold" onClick={handleDangXuat}>
+                                            <i className="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                        </button>
+                                    </li>
+                                </ul>
+                            </li>
+                        ) : (
+                            /* Nút đăng nhập khi chưa đăng nhập */
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/dang-nhap">
+                                    <i className="fas fa-user fs-5"></i>
+                                </NavLink>
+                            </li>
+                        )}
                     </ul>
 
                 </div>
