@@ -9,6 +9,10 @@ import About from './layouts/about/About';
 import ChiTIetSanPham from './layouts/product/ChiTietSanPham';
 import DangKyNguoiDung from './layouts/user/DangKyNguoiDung';
 import KichHoatTaiKhoan from './layouts/user/KichHoatTaiKhoan';
+import DangNhap from './layouts/user/DangNhap';
+import Test from './layouts/user/Test';
+import SachForm from './layouts/admin/SachForm';
+import SachForm_Admin from './layouts/admin/SachForm';
 
 
 function App() {
@@ -28,7 +32,9 @@ function App() {
           <Route path='/sach/:maSach' element={<ChiTIetSanPham />} />
           <Route path='/dang-ky' element={<DangKyNguoiDung />} />
           <Route path='/kich-hoat/:email/:maKichHoat' element={<KichHoatTaiKhoan />} />
-
+          <Route path='/dang-nhap' element={<DangNhap />} />
+          <Route path='/test' element={<Test />} />
+          <Route path='/admin/sach-form' element={<SachForm_Admin />} />
 
         </Routes>
 
