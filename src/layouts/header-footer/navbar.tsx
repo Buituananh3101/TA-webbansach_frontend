@@ -55,8 +55,8 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                                 Quy định bán hàng
                             </a>
                             <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="#">Chính sách đổi trả</a></li>
-                                <li><a className="dropdown-item" href="#">Phương thức thanh toán</a></li>
+                                <li><NavLink className="dropdown-item" to="/chinh-sach-doi-tra">Chính sách đổi trả</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/phuong-thuc-thanh-toan">Phương thức thanh toán</NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item">

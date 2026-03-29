@@ -15,6 +15,8 @@ import SachForm from './layouts/admin/SachForm';
 import SachForm_Admin from './layouts/admin/SachForm';
 import XoaSach_Admin from './layouts/admin/XoaSach'; //123
 import SuaSach_Admin from './layouts/admin/SuaSach'; //123
+import ChinhSachDoiTra from './layouts/about/ChinhSachDoiTra';
+import PhuongThucThanhToan from './layouts/about/PhuongThucThanhToan';
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
           <Route path='/' element={<HomePage tuKhoaTimKiem={tuKhoaTimKiem} />} />
           <Route path='/:maTheLoai' element={<HomePage tuKhoaTimKiem={tuKhoaTimKiem} />} />
           <Route path='/about' element={<About/>}/>
+          <Route path='/chinh-sach-doi-tra' element={<ChinhSachDoiTra/>}/>
+          <Route path='/phuong-thuc-thanh-toan' element={<PhuongThucThanhToan/>}/>
           <Route path='/sach/:maSach' element={<ChiTIetSanPham />} />
           <Route path='/dang-ky' element={<DangKyNguoiDung />} />
           <Route path='/kich-hoat/:email/:maKichHoat' element={<KichHoatTaiKhoan />} />
