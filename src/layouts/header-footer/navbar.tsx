@@ -42,13 +42,12 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                                 Thể loại sách
                             </a>
                             <ul className="dropdown-menu">
-                                <li><NavLink className="dropdown-item" to="/0">Tất cả</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/1">Tiểu thuyết</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/2">Sách giáo khoa</NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/3">Sách giáo </NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/4">Sách </NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/5">Sách </NavLink></li>
-                                <li><NavLink className="dropdown-item" to="/6">Sách </NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/0">Tất cả sách</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/1">Lập trình & CNTT</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/2">Lịch sử - Chính trị</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/3">Ngoại ngữ</NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/4">Giáo trình Đại học </NavLink></li>
+                                <li><NavLink className="dropdown-item" to="/5">Tuấn Anh làm sao ạ </NavLink></li>
                             </ul>
                         </li>
                         <li className="nav-item dropdown">
