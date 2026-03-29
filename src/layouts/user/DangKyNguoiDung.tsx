@@ -65,7 +65,9 @@ function DangKyNguoiDung() {
                         ten: ten,
                         soDienThoai: soDienThoai,
                         matKhau: matKhau,
-                        gioiTinh: gioiTinh,
+                        gioiTinh: gioiTinh, 
+                        daKichHoat: 0,
+                        maKichHoat: ""
                     }),
                 });
 
