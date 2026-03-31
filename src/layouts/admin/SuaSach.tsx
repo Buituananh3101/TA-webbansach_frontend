@@ -297,7 +297,7 @@ const SuaSach: React.FC = () => {
 
                     {/* //123SuaSach - 2 thanh tìm kiếm song song */}
                     <div className="row g-2 mb-3">
-                        <div className="col-md-5">
+                        <div className="col-md-5">  
                             <form onSubmit={handleTimKiemTheoId} className="d-flex gap-2">
                                 <input
                                     className="form-control form-control-sm"
