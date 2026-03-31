@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Search } from "react-bootstrap-icons";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { layTongSoLuongGioHang } from "../../utils/GioHangUtils"; //123GioHang
 
 interface NavbarProps{
     tuKhoaTimKiem: string;
@@ -14,6 +15,15 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
     const [daDangNhap, setDaDangNhap] = useState(false);
     const [tenDangNhap, setTenDangNhap] = useState('');
     const navigate = useNavigate();
+
+    //123GioHang - State và listener giỏ hàng
+    const [tongSoLuong, setTongSoLuong] = useState(0);
+    useEffect(() => {
+        setTongSoLuong(layTongSoLuongGioHang());
+        const handleGioHangThayDoi = () => setTongSoLuong(layTongSoLuongGioHang());
+        window.addEventListener("gioHangUpdated", handleGioHangThayDoi);
+        return () => window.removeEventListener("gioHangUpdated", handleGioHangThayDoi);
+    }, []);
 
     // Kiểm tra trạng thái đăng nhập từ token
     useEffect(() => {
@@ -103,9 +113,15 @@ function Navbar({tuKhoaTimKiem, setTuKhoaTimKiem}: NavbarProps) {
                     {/* Giỏ hàng & Tài khoản */}
                     <ul className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end align-items-center gap-3">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            {/* //123GioHang */}
+                            <NavLink className="nav-link position-relative" to="/gio-hang" style={{ marginTop: '5px' }}>
                                 <i className="fas fa-shopping-cart fs-5"></i>
-                            </a>
+                                {tongSoLuong > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{fontSize: '0.65rem'}}>
+                                        {tongSoLuong}
+                                    </span>
+                                )}
+                            </NavLink>
                         </li>
 
                         {daDangNhap ? (

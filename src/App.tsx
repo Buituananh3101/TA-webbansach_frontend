@@ -17,6 +17,7 @@ import XoaSach_Admin from './layouts/admin/XoaSach'; //123
 import SuaSach_Admin from './layouts/admin/SuaSach'; //123
 import ChinhSachDoiTra from './layouts/about/ChinhSachDoiTra';
 import PhuongThucThanhToan from './layouts/about/PhuongThucThanhToan';
+import GioHang from './layouts/user/GioHang'; //123GioHang
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path='/dang-ky' element={<DangKyNguoiDung />} />
           <Route path='/kich-hoat/:email/:maKichHoat' element={<KichHoatTaiKhoan />} />
           <Route path='/dang-nhap' element={<DangNhap />} />
+          <Route path='/gio-hang' element={<GioHang />} /> {/*//123GioHang*/}
           <Route path='/test' element={<Test />} />
           <Route path='/admin/sach-form' element={<SachForm_Admin />} />
           <Route path='/admin/xoa-sach' element={<XoaSach_Admin />} /> {/*//123XoaSach*/}
