@@ -36,9 +36,6 @@ const XoaSach: React.FC = () => {
     const [dangTimKiem, setDangTimKiem] = useState(false);
     const [dangTim, setDangTim] = useState(false);
 
-    // ============================================================
-    // 123XoaTamThoi - Tải danh sách tuỳ theo tab
-    // ============================================================
     const taiDanhSachSach = async (trang: number, tab: TabHienThi) => {
         setDangTai(true);
         setThongBao({ loai: "", noi: "" });
@@ -84,7 +81,7 @@ const XoaSach: React.FC = () => {
             setTongSoTrang(totalPages);
             setTongSoSach(totalElements);
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Không thể tải danh sách sách." });
+            setThongBao({ loai: "danger", noi: "Không thể tải danh sách sách." });
         } finally {
             setDangTai(false);
         }
@@ -107,9 +104,6 @@ const XoaSach: React.FC = () => {
         setThongBao({ loai: "", noi: "" });
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Tìm kiếm theo ID
-    // ============================================================
     const handleTimKiemTheoId = async (e: FormEvent) => {
         e.preventDefault();
         setThongBao({ loai: "", noi: "" });
@@ -126,7 +120,7 @@ const XoaSach: React.FC = () => {
             });
             if (!response.ok) {
                 setDanhSachSach([]);
-                setThongBao({ loai: "danger", noi: `❌ Không tìm thấy sách có ID: ${id}.` });
+                setThongBao({ loai: "danger", noi: `Không tìm thấy sách có ID: ${id}.` });
                 setDangTimKiem(true);
                 return;
             }
@@ -141,13 +135,13 @@ const XoaSach: React.FC = () => {
             const daXoa = data.daXoa === true;
             if (tabHienTai === "hien-co" && daXoa) {
                 setDanhSachSach([]);
-                setThongBao({ loai: "warning", noi: `⚠️ Sách ID ${id} đang trong Thùng rác, không hiển thị ở tab này.` });
+                setThongBao({ loai: "warning", noi: `Sách ID ${id} đang trong Thùng rác, không hiển thị ở tab này.` });
                 setDangTimKiem(true);
                 return;
             }
             if (tabHienTai === "thung-rac" && !daXoa) {
                 setDanhSachSach([]);
-                setThongBao({ loai: "warning", noi: `⚠️ Sách ID ${id} chưa bị xóa, hãy tìm ở tab "Sách hiện có".` });
+                setThongBao({ loai: "warning", noi: `Sách ID ${id} chưa bị xóa, hãy tìm ở tab "Sách hiện có".` });
                 setDangTimKiem(true);
                 return;
             }
@@ -156,15 +150,12 @@ const XoaSach: React.FC = () => {
             setTongSoTrang(1); setTongSoSach(1);
             setDangTimKiem(true);
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Lỗi khi tìm kiếm theo ID." });
+            setThongBao({ loai: "danger", noi: "Lỗi khi tìm kiếm theo ID." });
         } finally {
             setDangTim(false);
         }
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Tìm kiếm theo tên
-    // ============================================================
     const handleTimKiemTheoTen = async (e: FormEvent) => {
         e.preventDefault();
         setThongBao({ loai: "", noi: "" });
@@ -211,7 +202,7 @@ const XoaSach: React.FC = () => {
 
             if (items.length === 0) {
                 setDanhSachSach([]);
-                setThongBao({ loai: "danger", noi: `❌ Không tìm thấy sách nào có tên chứa "${timKiemTen}".` });
+                setThongBao({ loai: "danger", noi: `Không tìm thấy sách nào có tên chứa "${timKiemTen}".` });
             } else {
                 setDanhSachSach(items);
                 setTongSoSach(items.length);
@@ -219,7 +210,7 @@ const XoaSach: React.FC = () => {
             setTongSoTrang(1);
             setDangTimKiem(true);
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Lỗi khi tìm kiếm theo tên." });
+            setThongBao({ loai: "danger", noi: "Lỗi khi tìm kiếm theo tên." });
         } finally {
             setDangTim(false);
         }
@@ -234,9 +225,6 @@ const XoaSach: React.FC = () => {
         setThongBao({ loai: "", noi: "" });
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Xóa tạm thời (da_xoa = true)
-    // ============================================================
     const handleXoaTamThoi = async (maSach: number, tenSach: string) => {
         const xacNhan = window.confirm(
             `Bạn có chắc muốn xóa tạm thời sách:\n"${tenSach}" (ID: ${maSach})?\n\nSách sẽ vào Thùng rác và có thể khôi phục lại.`
@@ -255,16 +243,13 @@ const XoaSach: React.FC = () => {
                 setDanhSachSach((prev) => prev.filter((s) => s.maSach !== maSach));
                 setTongSoSach((prev) => prev - 1);
             } else {
-                setThongBao({ loai: "danger", noi: `❌ Xóa tạm thời thất bại! Lỗi ${response.status}.` });
+                setThongBao({ loai: "danger", noi: `Xóa tạm thời thất bại! Lỗi ${response.status}.` });
             }
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Lỗi kết nối khi xóa tạm thời." });
+            setThongBao({ loai: "danger", noi: "Lỗi kết nối khi xóa tạm thời." });
         }
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Khôi phục sách (da_xoa = false)
-    // ============================================================
     const handleKhoiPhuc = async (maSach: number, tenSach: string) => {
         const xacNhan = window.confirm(
             `Khôi phục sách:\n"${tenSach}" (ID: ${maSach})?\n\nSách sẽ xuất hiện lại trong cửa hàng.`
@@ -279,23 +264,20 @@ const XoaSach: React.FC = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.ok) {
-                setThongBao({ loai: "success", noi: `✅ Đã khôi phục "${tenSach}" thành công!` });
+                setThongBao({ loai: "success", noi: `Đã khôi phục "${tenSach}" thành công!` });
                 setDanhSachSach((prev) => prev.filter((s) => s.maSach !== maSach));
                 setTongSoSach((prev) => prev - 1);
             } else {
-                setThongBao({ loai: "danger", noi: `❌ Khôi phục thất bại! Lỗi ${response.status}.` });
+                setThongBao({ loai: "danger", noi: `Khôi phục thất bại! Lỗi ${response.status}.` });
             }
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Lỗi kết nối khi khôi phục." });
+            setThongBao({ loai: "danger", noi: "Lỗi kết nối khi khôi phục." });
         }
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Xóa vĩnh viễn (chỉ trong Thùng rác)
-    // ============================================================
     const handleXoaVinhVien = async (maSach: number, tenSach: string) => {
         const xacNhan = window.confirm(
-            `⚠️ XÓA VĨNH VIỄN sách:\n"${tenSach}" (ID: ${maSach})?\n\nHành động này KHÔNG THỂ hoàn tác!`
+            `XÓA VĨNH VIỄN sách:\n"${tenSach}" (ID: ${maSach})?\n\nHành động này KHÔNG THỂ hoàn tác!`
         );
         if (!xacNhan) return;
 
@@ -307,20 +289,17 @@ const XoaSach: React.FC = () => {
                 headers: { Authorization: `Bearer ${token}` },
             });
             if (response.ok || response.status === 204) {
-                setThongBao({ loai: "success", noi: `💥 Đã xóa vĩnh viễn "${tenSach}" khỏi hệ thống!` });
+                setThongBao({ loai: "success", noi: `Đã xóa vĩnh viễn "${tenSach}" khỏi hệ thống!` });
                 setDanhSachSach((prev) => prev.filter((s) => s.maSach !== maSach));
                 setTongSoSach((prev) => prev - 1);
             } else {
-                setThongBao({ loai: "danger", noi: `❌ Xóa vĩnh viễn thất bại! Lỗi ${response.status}.` });
+                setThongBao({ loai: "danger", noi: `Xóa vĩnh viễn thất bại! Lỗi ${response.status}.` });
             }
         } catch {
-            setThongBao({ loai: "danger", noi: "❌ Lỗi kết nối khi xóa vĩnh viễn." });
+            setThongBao({ loai: "danger", noi: "Lỗi kết nối khi xóa vĩnh viễn." });
         }
     };
 
-    // ============================================================
-    // 123XoaTamThoi - Render UI
-    // ============================================================
     return (
         <div className="container mt-5 mb-5">
             <div className="card shadow-lg border-0 rounded-3">
@@ -453,7 +432,7 @@ const XoaSach: React.FC = () => {
                                         <th style={{ width: "90px" }}>Số Lượng</th>
                                         {/* 123XoaTamThoi - Cột hành động khác nhau theo tab */}
                                         {tabHienTai === "hien-co" ? (
-                                            <th style={{ width: "140px" }} className="text-center">Xóa tạm thời</th>
+                                            <th style={{ width: "140px" }} className="text-center">Xóa</th>
                                         ) : (
                                             <th style={{ width: "220px" }} className="text-center">Hành động</th>
                                         )}
@@ -483,7 +462,7 @@ const XoaSach: React.FC = () => {
                                                             className="btn btn-warning btn-sm"
                                                             onClick={() => handleXoaTamThoi(sach.maSach, sach.tenSach)}
                                                         >
-                                                            <i className="bi bi-archive me-1"></i>Xóa tạm thời
+                                                            <i className="bi bi-archive me-1"></i>Xóa
                                                         </button>
                                                     ) : (
                                                         // 123XoaTamThoi - Nút khôi phục + xóa vĩnh viễn
