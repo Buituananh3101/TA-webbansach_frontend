@@ -141,11 +141,33 @@ function DangKyNguoiDung() {
     }
     const checkLoiEmail = async (emailValue: string) => {
         setErrorEmail('');
-        if (emailValue.trim() === '') {
+        const trimmed = emailValue.trim().toLowerCase();
+
+        if (trimmed === '') {
             setErrorEmail("Email không được để trống.");
             return false;
         }
-
+        if (!trimmed.endsWith('@gmail.com')) {
+            setErrorEmail("Chỉ chấp nhận địa chỉ Gmail (VD: tenban@gmail.com).");
+            return false;
+        }
+        const localPart = trimmed.slice(0, trimmed.indexOf('@'));
+        if (localPart.length < 6 || localPart.length > 30) {
+            setErrorEmail("Phần tên Gmail phải có từ 6 đến 30 ký tự.");
+            return false;
+        }
+        if (!/^[a-z0-9.]+$/.test(localPart)) {
+            setErrorEmail("Gmail chỉ được dùng chữ thường (a-z), số (0-9) và dấu chấm (.).");
+            return false;
+        }
+        if (localPart.startsWith('.') || localPart.endsWith('.')) {
+            setErrorEmail("Gmail không được bắt đầu hoặc kết thúc bằng dấu chấm.");
+            return false;
+        }
+        if (localPart.includes('..')) {
+            setErrorEmail("Gmail không được có 2 dấu chấm liên tiếp (..).");
+            return false;
+        }
         const url = `http://localhost:8080/nguoi-dung/search/existsByEmail?email=${emailValue}`;
         try {
             const response = await fetch(url);
@@ -251,8 +273,17 @@ function DangKyNguoiDung() {
                     </div>
                     {/* Email */}
                     <div className="mb-3 text-start">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="email" className="form-control" id="email" value={email} onChange={handleEmailChange} />
+                        <label htmlFor="email" className="form-label">
+                            Gmail <span className="text-muted small">(chỉ chấp nhận @gmail.com)</span>
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            value={email}
+                            onChange={handleEmailChange}
+                            placeholder="vidu@gmail.com"
+                        />
                         <div className="mt-1" style={{ color: 'red' }}>{errorEmail}</div>
                     </div>
                     {/* Họ đệm, tên, giới tính */}
