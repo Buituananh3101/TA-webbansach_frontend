@@ -39,6 +39,7 @@ const XoaSach: React.FC = () => {
     const taiDanhSachSach = async (trang: number, tab: TabHienThi) => {
         setDangTai(true);
         setThongBao({ loai: "", noi: "" });
+        setDanhSachSach([]); // 123XoaTamThoi - Xóa data cũ, tránh hiển thị stale data khi load thất bại
         const token = localStorage.getItem("token");
         try {
             let url = "";
@@ -47,7 +48,7 @@ const XoaSach: React.FC = () => {
                 url = `http://localhost:8080/sach/search/findByDaXoaFalseOrDaXoaIsNull?sort=maSach,desc&size=10&page=${trang}`;
             } else {
                 // 123XoaTamThoi - lấy thùng rác (da_xoa = true)
-                url = `http://localhost:8080/sach/da-xoa?page=${trang}&size=10`;
+                url = `http://localhost:8080/admin/sach/da-xoa?page=${trang}&size=10`;
             }
 
             const response = await fetch(url, {
@@ -174,7 +175,7 @@ const XoaSach: React.FC = () => {
                 url = `http://localhost:8080/sach/search/findByTenSachContaining?tenSach=${encodeURIComponent(timKiemTen)}&sort=maSach,desc&size=100&page=0`;
             } else {
                 // 123XoaTamThoi - Tìm theo tên trong thùng rác
-                url = `http://localhost:8080/sach/da-xoa?tenSach=${encodeURIComponent(timKiemTen)}&page=0&size=100`;
+                url = `http://localhost:8080/admin/sach/da-xoa?tenSach=${encodeURIComponent(timKiemTen)}&page=0&size=100`;
             }
 
             const response = await fetch(url, {
@@ -233,8 +234,8 @@ const XoaSach: React.FC = () => {
 
         const token = localStorage.getItem("token");
         try {
-            // 123XoaTamThoi - gọi PATCH /sach/{id}/xoa-tam-thoi
-            const response = await fetch(`http://localhost:8080/sach/${maSach}/xoa-tam-thoi`, {
+            // 123XoaTamThoi - gọi PATCH /admin/sach/{id}/xoa-tam-thoi
+            const response = await fetch(`http://localhost:8080/admin/sach/${maSach}/xoa-tam-thoi`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -258,8 +259,8 @@ const XoaSach: React.FC = () => {
 
         const token = localStorage.getItem("token");
         try {
-            // 123XoaTamThoi - gọi PATCH /sach/{id}/khoi-phuc
-            const response = await fetch(`http://localhost:8080/sach/${maSach}/khoi-phuc`, {
+            // 123XoaTamThoi - gọi PATCH /admin/sach/{id}/khoi-phuc
+            const response = await fetch(`http://localhost:8080/admin/sach/${maSach}/khoi-phuc`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${token}` },
             });
