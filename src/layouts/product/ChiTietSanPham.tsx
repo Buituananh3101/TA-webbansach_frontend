@@ -401,275 +401,275 @@ const styles = `
 
 const ChiTietSanPham: React.FC = () => {
 
-  // Cuộn lên đầu trang thật mượt mà khi vừa vào
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    // Cuộn lên đầu trang thật mượt mà khi vừa vào
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  // Lấy mã sách từ URL 
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    // Lấy mã sách từ URL 
 
-  const { maSach } = useParams();
+    const { maSach } = useParams();
 
-  let maSachNumber = 0;
-  try {
-    maSachNumber = parseInt(maSach + '');
-    if (Number.isNaN(maSachNumber)) maSachNumber = 0;
-  } catch (error) {
-    maSachNumber = 0;
-    console.error("Error", error);
-  }
-
-  const [sach, setSach] = useState<SachModel | null>(null);
-  const [dangTaiDuLieu, setDangTaiDuLieu] = useState<boolean>(true);
-  const [baoLoi, setBaoLoi] = useState(null);
-  const [bgColor, setBgColor] = useState<string>("var(--cream, #faf7f2)");
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  // Nút số lượng
-
-  const [soLuong, setSoLuong] = useState(1);
-  const tangSoLuong = () => {
-    const soLuonghienTai = sach?.soLuong ?? 0;
-    if (soLuong < soLuonghienTai) {
-      setSoLuong(soLuong + 1);
+    let maSachNumber = 0;
+    try {
+        maSachNumber = parseInt(maSach + '');
+        if (Number.isNaN(maSachNumber)) maSachNumber = 0;
+    } catch (error) {
+        maSachNumber = 0;
+        console.error("Error", error);
     }
-  }
-  const giamSoLuong = () => { if (soLuong > 1) setSoLuong(soLuong - 1); }
-  const handleSoLuongThayDoi = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const giaTri = parseInt(event.target.value);
-    const soLuongToiDa = sach?.soLuong ?? 0;
 
-    if (!isNaN(giaTri) && giaTri >= 1 && giaTri <= soLuongToiDa) {
-      setSoLuong(giaTri);
-    } else if (giaTri > soLuongToiDa) {
-      setSoLuong(soLuongToiDa);
-    }
-  }
+    const [sach, setSach] = useState<SachModel | null>(null);
+    const [dangTaiDuLieu, setDangTaiDuLieu] = useState<boolean>(true);
+    const [baoLoi, setBaoLoi] = useState(null);
+    const [bgColor, setBgColor] = useState<string>("var(--cream, #faf7f2)");
 
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  // Mua ngay & thêm vào giỏ hàng
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    // Nút số lượng
 
-  const handleMuaNgay = () => {
-  }
-
-  const handleThemVaoGioHang = () => {
-    //123GioHang
-    if (sach) {
-      themVaoGioHang(sach, soLuong);
-      alert("Đã thêm " + sach.tenSach + " vào giỏ hàng!");
-    }
-  }
-
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  useEffect(() => {
-    laySachTheoMaSach(maSachNumber)
-      .then(
-        (sach) => {
-          setSach(sach);
-          setDangTaiDuLieu(false);
+    const [soLuong, setSoLuong] = useState(1);
+    const tangSoLuong = () => {
+        const soLuonghienTai = sach?.soLuong ?? 0;
+        if (soLuong < soLuonghienTai) {
+            setSoLuong(soLuong + 1);
         }
-      )
-      .catch(
-        (error) => {
-          setBaoLoi(error.message);
-          setDangTaiDuLieu(false);
-        }
-      );
-  }, [maSach]
-  )
-
-  // Hiệu ứng lấy màu trung bình từ ảnh bìa (giống Spotify)
-  useEffect(() => {
-    if (sach) {
-      const fac = new FastAverageColor();
-
-      // SỬA Ở ĐÂY: Thêm " img" để lấy đúng thẻ hình ảnh bên trong thẻ div
-      const imgElement = document.querySelector(".img-main-sach img") as HTMLImageElement;
-
-      if (imgElement) {
-        // Đảm bảo ảnh load xong hoặc cho phép crossOrigin nếu cần
-        imgElement.crossOrigin = "Anonymous";
-
-        fac.getColorAsync(imgElement)
-          .then((color: any) => { // SỬA LỖI TS7006: Thêm ': any' cho biến color
-            // Tạo gradient từ màu lấy được sang trắng/xám nhạt
-            setBgColor(`linear-gradient(180deg, ${color.rgba} 0%, rgba(250,247,242,1) 40%)`);
-          })
-          .catch((e: any) => console.error("Lỗi lấy màu nền:", e)); // SỬA LỖI TS7006: Thêm ': any' cho biến e
-      }
     }
-  }, [sach, dangTaiDuLieu]);
+    const giamSoLuong = () => { if (soLuong > 1) setSoLuong(soLuong - 1); }
+    const handleSoLuongThayDoi = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const giaTri = parseInt(event.target.value);
+        const soLuongToiDa = sach?.soLuong ?? 0;
+
+        if (!isNaN(giaTri) && giaTri >= 1 && giaTri <= soLuongToiDa) {
+            setSoLuong(giaTri);
+        } else if (giaTri > soLuongToiDa) {
+            setSoLuong(soLuongToiDa);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    // Mua ngay & thêm vào giỏ hàng
+
+    const handleMuaNgay = () => {
+    }
+
+    const handleThemVaoGioHang = () => {
+        //123GioHang
+        if (sach) {
+            themVaoGioHang(sach, soLuong);
+            alert("Đã thêm " + sach.tenSach + " vào giỏ hàng!");
+        }
+    }
 
 
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  // Bắt lỗi
-
-  if (dangTaiDuLieu) {
-    return (
-      <>
-        <style>{styles}</style>
-        <div className="cdsp-state">
-          <div className="cdsp-spinner"></div>
-          <span>Đang tải sách...</span>
-        </div>
-      </>
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    useEffect(() => {
+        laySachTheoMaSach(maSachNumber)
+            .then(
+                (sach) => {
+                    setSach(sach);
+                    setDangTaiDuLieu(false);
+                }
+            )
+            .catch(
+                (error) => {
+                    setBaoLoi(error.message);
+                    setDangTaiDuLieu(false);
+                }
+            );
+    }, [maSach]
     )
-  }
 
-  if (baoLoi) {
-    return (
-      <>
-        <style>{styles}</style>
-        <div className="cdsp-state">
-          <span style={{ fontSize: '2.5rem' }}>⚠️</span>
-          <span>Gặp lỗi: {baoLoi}</span>
-        </div>
-      </>
-    )
-  }
+    // Hiệu ứng lấy màu trung bình từ ảnh bìa (giống Spotify)
+    useEffect(() => {
+        if (sach) {
+            const fac = new FastAverageColor();
 
-  if (!sach) {
-    return (
-      <>
-        <style>{styles}</style>
-        <div className="cdsp-state">
-          <span style={{ fontSize: '2.5rem' }}>📚</span>
-          <span>Sách không tồn tại</span>
-        </div>
-      </>
-    )
-  }
+            // SỬA Ở ĐÂY: Thêm " img" để lấy đúng thẻ hình ảnh bên trong thẻ div
+            const imgElement = document.querySelector(".img-main-sach img") as HTMLImageElement;
 
-  //-----------------------------------------------------------------------------------------------------------------------------------------
-  return (
-    <>
-      {/* Inject styles */}
-      <style>{styles}</style>
+            if (imgElement) {
+                // Đảm bảo ảnh load xong hoặc cho phép crossOrigin nếu cần
+                imgElement.crossOrigin = "Anonymous";
 
-      <div className="cdsp-page" style={{ background: bgColor }}>
-        <div className="container">
+                fac.getColorAsync(imgElement)
+                    .then((color: any) => { // SỬA LỖI TS7006: Thêm ': any' cho biến color
+                        // Tạo gradient từ màu lấy được sang trắng/xám nhạt
+                        setBgColor(`linear-gradient(180deg, ${color.rgba} 0%, rgba(250,247,242,1) 40%)`);
+                    })
+                    .catch((e: any) => console.error("Lỗi lấy màu nền:", e)); // SỬA LỖI TS7006: Thêm ': any' cho biến e
+            }
+        }
+    }, [sach, dangTaiDuLieu]);
 
-          {/* Breadcrumb */}
-          <nav className="cdsp-breadcrumb cdsp-fade">
-            <Link to="/">Trang chủ</Link>
-            <span>/</span>
-            <Link to="/sach">Sách</Link>
-            <span>/</span>
-            <span style={{ color: 'var(--ink)', opacity: 0.7 }}>{sach.tenSach}</span>
-          </nav>
 
-          {/* Main product grid */}
-          <div className="cdsp-main">
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    // Bắt lỗi
 
-            {/* Cột ảnh */}
-            <div className="cdsp-image-col cdsp-fade">
-              <div className="cdsp-image-card img-main-sach">
-                <HinhAnhSanPham maSach={maSachNumber} />
-              </div>
-            </div>
-
-            {/* Cột thông tin */}
-            <div className="cdsp-info-col">
-
-              {/* Badge thể loại nếu có */}
-              <div className="cdsp-badge cdsp-fade cdsp-fade-delay-1">
-                📖 Sách
-              </div>
-
-              {/* Tên sách */}
-              <h1 className="cdsp-title cdsp-fade cdsp-fade-delay-1">
-                {sach.tenSach}
-              </h1>
-
-              {/* Rating */}
-              <div className="cdsp-rating-row cdsp-fade cdsp-fade-delay-1">
-                <span className="cdsp-stars">
-                  {renderRating(sach.trungBinhXepHang ? sach.trungBinhXepHang : 0)}
-                </span>
-                {sach.trungBinhXepHang && (
-                  <span>{sach.trungBinhXepHang.toFixed(1)} / 5.0</span>
-                )}
-              </div>
-
-              {/* Giá */}
-              <div className="cdsp-price-block cdsp-fade cdsp-fade-delay-2">
-                <div className="cdsp-price-label">Giá bán</div>
-                <div className="cdsp-price">
-                  {DinhDangSo(sach.giaBan ? sach.giaBan : 0)}
-                  <sup>đ</sup>
+    if (dangTaiDuLieu) {
+        return (
+            <>
+                <style>{styles}</style>
+                <div className="cdsp-state">
+                    <div className="cdsp-spinner"></div>
+                    <span>Đang tải sách...</span>
                 </div>
-              </div>
+            </>
+        )
+    }
 
-              <hr className="cdsp-divider" />
-
-              {/* Thông tin chi tiết */}
-              <div
-                className="cdsp-description cdsp-fade cdsp-fade-delay-2"
-                dangerouslySetInnerHTML={{ __html: (sach.thongTinChiTiet + '') }}
-              />
-
-              <hr className="cdsp-divider" />
-
-              {/* PHẦN ĐẶT HÀNG */}
-              <div className="cdsp-order-box cdsp-fade cdsp-fade-delay-3">
-
-                <div className="cdsp-qty-label">Số lượng</div>
-
-                {/* Nút tăng giảm số lượng */}
-                <div className="cdsp-qty-control">
-                  <button className="cdsp-qty-btn" onClick={giamSoLuong} aria-label="Giảm">−</button>
-                  <input
-                    className="cdsp-qty-input"
-                    value={soLuong}
-                    onChange={handleSoLuongThayDoi}
-                    type="number"
-                    min={1}
-                    max={sach.soLuong ?? 99}
-                    aria-label="Số lượng"
-                  />
-                  <button className="cdsp-qty-btn" onClick={tangSoLuong} aria-label="Tăng">+</button>
+    if (baoLoi) {
+        return (
+            <>
+                <style>{styles}</style>
+                <div className="cdsp-state">
+                    <span style={{ fontSize: '2.5rem' }}>⚠️</span>
+                    <span>Gặp lỗi: {baoLoi}</span>
                 </div>
+            </>
+        )
+    }
 
-                {/* Tạm tính */}
-                {sach.giaBan && (
-                  <div className="cdsp-subtotal">
-                    <div className="cdsp-subtotal-label">Tạm tính</div>
-                    <div className="cdsp-subtotal-price">
-                      {DinhDangSo(soLuong * sach.giaBan)} đ
+    if (!sach) {
+        return (
+            <>
+                <style>{styles}</style>
+                <div className="cdsp-state">
+                    <span style={{ fontSize: '2.5rem' }}>📚</span>
+                    <span>Sách không tồn tại</span>
+                </div>
+            </>
+        )
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    return (
+        <>
+            {/* Inject styles */}
+            <style>{styles}</style>
+
+            <div className="cdsp-page" style={{ background: bgColor }}>
+                <div className="container">
+
+                    {/* Breadcrumb */}
+                    <nav className="cdsp-breadcrumb cdsp-fade">
+                        <Link to="/">Trang chủ</Link>
+                        <span>/</span>
+                        <Link to="/sach">Sách</Link>
+                        <span>/</span>
+                        <span style={{ color: 'var(--ink)', opacity: 0.7 }}>{sach.tenSach}</span>
+                    </nav>
+
+                    {/* Main product grid */}
+                    <div className="cdsp-main">
+
+                        {/* Cột ảnh */}
+                        <div className="cdsp-image-col cdsp-fade">
+                            <div className="cdsp-image-card img-main-sach">
+                                <HinhAnhSanPham maSach={maSachNumber} />
+                            </div>
+                        </div>
+
+                        {/* Cột thông tin */}
+                        <div className="cdsp-info-col">
+
+                            {/* Badge thể loại nếu có */}
+                            <div className="cdsp-badge cdsp-fade cdsp-fade-delay-1">
+                                📖 Sách
+                            </div>
+
+                            {/* Tên sách */}
+                            <h1 className="cdsp-title cdsp-fade cdsp-fade-delay-1">
+                                {sach.tenSach}
+                            </h1>
+
+                            {/* Rating */}
+                            <div className="cdsp-rating-row cdsp-fade cdsp-fade-delay-1">
+                                <span className="cdsp-stars">
+                                    {renderRating(sach.trungBinhXepHang ? sach.trungBinhXepHang : 0)}
+                                </span>
+                                {sach.trungBinhXepHang && (
+                                    <span>{sach.trungBinhXepHang.toFixed(1)} / 5.0</span>
+                                )}
+                            </div>
+
+                            {/* Giá */}
+                            <div className="cdsp-price-block cdsp-fade cdsp-fade-delay-2">
+                                <div className="cdsp-price-label">Giá bán</div>
+                                <div className="cdsp-price">
+                                    {DinhDangSo(sach.giaBan ? sach.giaBan : 0)}
+                                    <sup>đ</sup>
+                                </div>
+                            </div>
+
+                            <hr className="cdsp-divider" />
+
+                            {/* Thông tin chi tiết */}
+                            <div
+                                className="cdsp-description cdsp-fade cdsp-fade-delay-2"
+                                dangerouslySetInnerHTML={{ __html: (sach.thongTinChiTiet + '') }}
+                            />
+
+                            <hr className="cdsp-divider" />
+
+                            {/* PHẦN ĐẶT HÀNG */}
+                            <div className="cdsp-order-box cdsp-fade cdsp-fade-delay-3">
+
+                                <div className="cdsp-qty-label">Số lượng</div>
+
+                                {/* Nút tăng giảm số lượng */}
+                                <div className="cdsp-qty-control">
+                                    <button className="cdsp-qty-btn" onClick={giamSoLuong} aria-label="Giảm">−</button>
+                                    <input
+                                        className="cdsp-qty-input"
+                                        value={soLuong}
+                                        onChange={handleSoLuongThayDoi}
+                                        type="number"
+                                        min={1}
+                                        max={sach.soLuong ?? 99}
+                                        aria-label="Số lượng"
+                                    />
+                                    <button className="cdsp-qty-btn" onClick={tangSoLuong} aria-label="Tăng">+</button>
+                                </div>
+
+                                {/* Tạm tính */}
+                                {sach.giaBan && (
+                                    <div className="cdsp-subtotal">
+                                        <div className="cdsp-subtotal-label">Tạm tính</div>
+                                        <div className="cdsp-subtotal-price">
+                                            {DinhDangSo(soLuong * sach.giaBan)} đ
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Buttons */}
+                                <button className="cdsp-btn-primary" type="button" onClick={handleMuaNgay}>
+                                    Mua ngay
+                                </button>
+
+                                <button className="cdsp-btn-secondary" type="button" onClick={handleThemVaoGioHang}>
+                                    {/* Cart icon SVG */}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                    </svg>
+                                    Thêm vào giỏ hàng
+                                </button>
+
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                )}
 
-                {/* Buttons */}
-                <button className="cdsp-btn-primary" type="button" onClick={handleMuaNgay}>
-                  Mua ngay
-                </button>
+                    {/* PHẦN REVIEW */}
+                    <div className="cdsp-review-section">
+                        <h2 className="cdsp-review-header">Đánh giá sản phẩm</h2>
+                        <DanhGiaSanPham maSach={maSachNumber} />
+                    </div>
 
-                <button className="cdsp-btn-secondary" type="button" onClick={handleThemVaoGioHang}>
-                  {/* Cart icon SVG */}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                  </svg>
-                  Thêm vào giỏ hàng
-                </button>
-
-              </div>
+                </div>
             </div>
-          </div>
-
-          {/* PHẦN REVIEW */}
-          <div className="cdsp-review-section">
-            <h2 className="cdsp-review-header">Đánh giá sản phẩm</h2>
-            <DanhGiaSanPham maSach={maSachNumber} />
-          </div>
-
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 
 
 }

@@ -53,7 +53,7 @@ async function laySach(duongDan: string): Promise<KetQuaInterface> {
 export async function layToanBoSach(
   trangHienTai: number,
 ): Promise<KetQuaInterface> {
-  const duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
+  const duongDan: string = `http://localhost:8080/sach/search/findByDaXoaFalseOrDaXoaIsNull?sort=maSach,desc&size=8&page=${trangHienTai}`;
   return laySach(duongDan);
 }
 
@@ -61,7 +61,7 @@ export async function layToanBoSach(
 
 export async function lay3SachMoiNhat(): Promise<KetQuaInterface> {
   const duongDan: string =
-    "http://localhost:8080/sach?sort=maSach,desc&page=0&size=3";
+    "http://localhost:8080/sach/search/findByDaXoaFalseOrDaXoaIsNull?sort=maSach,desc&page=0&size=3";
   return laySach(duongDan);
 }
 
@@ -81,19 +81,19 @@ export async function timKiemSach(
   maTheLoai: number,
   trangHienTai: number,
 ): Promise<KetQuaInterface> {
-  let duongDan: string = `http://localhost:8080/sach?sort=maSach,desc&size=8&page=${trangHienTai}`;
+  let duongDan: string = `http://localhost:8080/sach/search/findByDaXoaFalseOrDaXoaIsNull?sort=maSach,desc&size=8&page=${trangHienTai}`;
 
   if (tuKhoaTimKiem !== "" && maTheLoai == 0) {
 
-    duongDan = `http://localhost:8080/sach/search/findByTenSachContaining?sort=maSach,desc&size=8&page=${trangHienTai}&tenSach=${tuKhoaTimKiem}`;
+    duongDan = `http://localhost:8080/sach/search/findByTenSachContainingAndDaXoaFalseOrTenSachContainingAndDaXoaIsNull?sort=maSach,desc&size=8&page=${trangHienTai}&tenSach=${tuKhoaTimKiem}`;
   
   } else if (tuKhoaTimKiem === "" && maTheLoai > 0) {
 
-    duongDan = `http://localhost:8080/sach/search/findByDanhSachTheLoai_MaTheLoai?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}`;
+    duongDan = `http://localhost:8080/sach/search/findByDanhSachTheLoai_MaTheLoaiAndDaXoaFalseOrDanhSachTheLoai_MaTheLoaiAndDaXoaIsNull?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}`;
   
   } else if (tuKhoaTimKiem !== "" && maTheLoai > 0) {
 
-    duongDan = `http://localhost:8080/sach/search/findByTenSachContainingAndDanhSachTheLoai_MaTheLoai?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}&tenSach=${tuKhoaTimKiem}`;
+    duongDan = `http://localhost:8080/sach/search/findByTenSachContainingAndDanhSachTheLoai_MaTheLoaiAndDaXoaFalse?sort=maSach,desc&size=8&page=${trangHienTai}&maTheLoai=${maTheLoai}&tenSach=${tuKhoaTimKiem}`;
   
   }
   return laySach(duongDan);
